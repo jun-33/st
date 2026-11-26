@@ -10,14 +10,14 @@ from pathlib import Path
 # =========================================================
 
 st.set_page_config(
-    page_title="경기도 ESS 충전량과 방전량",
+    page_title="대전시 ESS 충전량과 방전량",
     page_icon="🔋",
     layout="wide"
 )
 
-st.title("🔋 경기도 ESS 날짜별 충전량과 방전량")
+st.title("🔋 대전시 ESS 날짜별 충전량과 방전량")
 st.write(
-    "2024년부터 2025년까지 경기도의 ESS 일단위 충전 및 방전 실적을 확인합니다."
+    "2024년부터 2025년까지 대전시의 ESS 일단위 충전 및 방전 실적을 확인합니다."
 )
 
 
@@ -131,17 +131,17 @@ df["방전량 합계(kWh)"] = pd.to_numeric(
 
 
 # =========================================================
-# 경기도 데이터만 추출
+# 대전시 데이터만 추출
 # =========================================================
 
 df[region_column] = df[region_column].astype(str).str.strip()
 
 gyeonggi_df = df[
-    df[region_column] == "경기도"
+    df[region_column] == "대전시"
 ].copy()
 
 if gyeonggi_df.empty:
-    st.error("경기도 데이터를 찾을 수 없습니다.")
+    st.error("대전시 데이터를 찾을 수 없습니다.")
     st.write(
         "CSV에 들어 있는 지역 목록:",
         sorted(df[region_column].dropna().unique().tolist())
@@ -153,17 +153,17 @@ if gyeonggi_df.empty:
 # 데이터 개요
 # =========================================================
 
-st.subheader("📊 경기도 데이터 개요")
+st.subheader("📊 대전시 데이터 개요")
 
 st.write(
-    "2024년과 2025년 CSV에서 경기도 데이터만 추출했습니다."
+    "2024년과 2025년 CSV에서 대전시 데이터만 추출했습니다."
 )
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.metric(
-        "경기도 전체 행 수",
+        "대전시 전체 행 수",
         f"{gyeonggi_df.shape[0]:,}개"
     )
 
@@ -241,7 +241,7 @@ st.divider()
 # 날짜별 충전량과 방전량 그래프
 # =========================================================
 
-st.subheader("📈 2024~2025년 경기도 ESS 날짜별 충전량과 방전량")
+st.subheader("📈 2024~2025년 대전시 ESS 날짜별 충전량과 방전량")
 
 fig = go.Figure()
 
@@ -302,7 +302,7 @@ st.plotly_chart(
 # 날짜별 데이터 확인
 # =========================================================
 
-with st.expander("📋 경기도 날짜별 충전량과 방전량 데이터 확인"):
+with st.expander("📋 대전시 날짜별 충전량과 방전량 데이터 확인"):
     st.dataframe(
         daily_df,
         use_container_width=True,
@@ -311,10 +311,10 @@ with st.expander("📋 경기도 날짜별 충전량과 방전량 데이터 확�
 
 
 # =========================================================
-# 원본 경기도 데이터 확인
+# 원본 대전시 데이터 확인
 # =========================================================
 
-with st.expander("📂 경기도 원본 데이터 확인"):
+with st.expander("📂 대전시 원본 데이터 확인"):
     st.dataframe(
         gyeonggi_df,
         use_container_width=True,
